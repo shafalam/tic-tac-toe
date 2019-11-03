@@ -1,47 +1,38 @@
-import React, { Component } from "react"
-import Square from "../Square/Square"
+import React, { Component } from "react";
+import Square from "../Square/Square";
 
-class Board extends Component{
-    constructor(props){
-        super(props);
-        this.state = {
-            squares: Array(9).fill(null)
-        }
-    }
-    
-    handleClick = (i) => {
-        const squares = this.state.squares.slice();
-        squares[i] = "X";
-        this.setState({squares: squares});
-    }
+class Board extends Component {
+  renderSquare = i => {
+    return (
+      <Square
+        value={this.props.squares[i]}
+        onClick={() => this.props.onClick(i)}
+      />
+    );
+  };
 
-    renderSquares(i){
-        return <Square value ={this.state.squares[i]} 
-        onClick={() => this.handleClick(i)}/>;
-    }
-    
-    render(){
-        return(
-            <div>
-                <div className="board-row">
-                {this.renderSquares(0)}
-                {this.renderSquares(1)}
-                {this.renderSquares(2)}
-                </div>
-                <div className="board-row">
-                {this.renderSquares(3)}
-                {this.renderSquares(4)}
-                {this.renderSquares(5)}
-                </div>
-                <div className="board-row">
-                {this.renderSquares(6)}
-                {this.renderSquares(7)}
-                {this.renderSquares(8)}
-                </div>
-
-            </div>
-        );
-    }
+  render() {
+    return (
+      <div>
+        <div className="status">{this.props.status}</div>
+        <div className="board-row">
+          {this.renderSquare(0)}
+          {this.renderSquare(1)}
+          {this.renderSquare(2)}
+        </div>
+        <div className="board-row">
+          {this.renderSquare(3)}
+          {this.renderSquare(4)}
+          {this.renderSquare(5)}
+        </div>
+        <div className="board-row">
+          {this.renderSquare(6)}
+          {this.renderSquare(7)}
+          {this.renderSquare(8)}
+        </div>
+      </div>
+    );
+  }
 }
 
 export default Board;
