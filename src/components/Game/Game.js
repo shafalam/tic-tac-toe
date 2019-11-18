@@ -78,15 +78,18 @@ class Game extends Component {
     const current = history[history.length - 1];
     const squares = current.squares.slice();
     setTimeout(() => {
-      let randomNum = Math.trunc(Math.random() * (8 - 0));;
+      const freeCells = [];
+      squares.filter((element, index) => {
+        if (element === null) {
+          freeCells.push(index)
+        }
+        return true;
+      })
 
-      while (squares[randomNum]) {
-        randomNum = Math.trunc(Math.random() * 10);
-      }
-
-
-      console.log(randomNum);
-      this.handleClick(randomNum);
+      let randomNum = Math.trunc(Math.random() * ((freeCells.length - 1) - 0 + 1) + 0);
+      console.log("free spots: ", freeCells, " random number: ", randomNum);
+      console.log(freeCells[randomNum]);
+      this.handleClick(freeCells[randomNum]);
     }, 1000);
 
   }
