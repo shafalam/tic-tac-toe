@@ -1,14 +1,19 @@
 // *************************************
-// renders a board of 9 squares 
+// renders a board of 9 squares
 // 3 squares in a row and total 3 rows
 // *************************************
-
 
 import React, { Component } from "react";
 import Square from "../Square/Square";
 
-class Board extends Component {
-  renderSquare = i => {
+interface BoardProps {
+  squares: string[];
+  onClick(i: number): void;
+  status: string;
+}
+
+class Board extends Component<BoardProps> {
+  renderSquare = (i: number) => {
     return (
       <Square
         value={this.props.squares[i]}
