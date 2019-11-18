@@ -22,6 +22,7 @@ class Game extends Component {
 
 
   handleClick = i => {
+    console.log("click handler. i = " + i);
     const history = this.state.history.slice(0, this.state.stepNumber + 1);
     const current = history[history.length - 1];
     const squares = current.squares.slice();
@@ -39,7 +40,6 @@ class Game extends Component {
   };
 
   calculateWinner = squares => {
-    console.log("New winner calculation");
     const winnerPattern = [
       [0, 1, 2],
       [3, 4, 5],
@@ -53,13 +53,11 @@ class Game extends Component {
 
     for (let i = 0; i < winnerPattern.length; i++) {
       const [a, b, c] = winnerPattern[i];
-      console.log(squares[a] + " " + squares[b] + " " + squares[c]);
       if (
         squares[a] &&
         squares[a] === squares[b] &&
         squares[a] === squares[c]
       ) {
-        console.log("Winner found");
         return squares[a];
       }
     }
@@ -70,7 +68,28 @@ class Game extends Component {
     this.setState({ stepNumber: step, xIsNext: step % 2 === 0 ? true : false });
   };
 
+
+  machinePlay = () => {
+    setTimeout(() => {
+      const randomNum = Math.trunc(Math.random() * 10);
+      console.log(randomNum);
+      this.handleClick(randomNum);
+    }, 1000);
+
+  }
+
+  componentDidMount() {
+  }
+  componentDidUpdate() {
+    // machine move
+    if (!this.state.xIsNext) {
+      this.machinePlay();
+    }
+  }
+
   render() {
+    console.log("rendering");
+
     const history = this.state.history;
     const current = history[this.state.stepNumber];
     const winner = this.calculateWinner(current.squares);
@@ -97,6 +116,7 @@ class Game extends Component {
     } else {
       status = "Next player: " + (this.state.xIsNext ? "X" : "O");
     }
+
     return (
       <div className="game">
         <div className="game-board">
