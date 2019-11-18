@@ -27,6 +27,10 @@ class Game extends Component {
     const current = history[history.length - 1];
     const squares = current.squares.slice();
 
+    if (squares[i]) {
+      return;
+    }
+
     if (this.calculateWinner(squares)) {
       return;
     }
@@ -70,10 +74,22 @@ class Game extends Component {
 
 
   machinePlay = () => {
+    const history = this.state.history.slice(0, this.state.stepNumber + 1);
+    const current = history[history.length - 1];
+    const squares = current.squares.slice();
     setTimeout(() => {
-      const randomNum = Math.trunc(Math.random() * 10);
-      console.log(randomNum);
-      this.handleClick(randomNum);
+      const freeCells = [];
+      squares.filter((element, index) => {
+        if (element === null) {
+          freeCells.push(index)
+        }
+        return true;
+      })
+
+      let randomNum = Math.trunc(Math.random() * ((freeCells.length - 1) - 0 + 1) + 0);
+      console.log("free spots: ", freeCells, " random number: ", randomNum);
+      console.log(freeCells[randomNum]);
+      this.handleClick(freeCells[randomNum]);
     }, 1000);
 
   }
