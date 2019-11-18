@@ -1,3 +1,11 @@
+// *********************************
+// for each moves an unique set of moves is create as an array
+// this array is passed to check whether it matches with the winner 
+// pattern.
+// renders board and a list of past moves
+// **********************************
+
+
 import React, { Component } from "react";
 import Board from "../Board/Board";
 

@@ -1,3 +1,9 @@
+// *************************************
+// renders a board of 9 squares 
+// 3 squares in a row and total 3 rows
+// *************************************
+
+
 import React, { Component } from "react";
 import Square from "../Square/Square";
 

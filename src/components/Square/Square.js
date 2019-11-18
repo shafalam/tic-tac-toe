@@ -1,3 +1,8 @@
+// ****************************
+// renders a sqaure which is basically a cell 
+// in a board
+// ****************************
+
 import React from "react";
 
 const square = props => {
