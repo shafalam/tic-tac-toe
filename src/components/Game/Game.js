@@ -1,12 +1,3 @@
-// *******************
-// Functions:
-// for each move an unique set of moves is created and added to the history
-// array. this set of pattern is checked whether it matches with the existing 
-// winner pattern. if it doesn't match, updates the next player status and 
-// step-number
-// render board and history of the past moves
-// ***********************
-
 import React, { Component } from "react";
 import Board from "../Board/Board";
 
@@ -27,19 +18,15 @@ class Game extends Component {
     const current = history[history.length - 1];
     const squares = current.squares.slice();
 
-    // checks whether game is finished or not
     if (this.calculateWinner(squares)) {
       return;
     }
     squares[i] = this.state.xIsNext ? "X" : "O";
     const flipXisNext = !this.state.xIsNext;
-    const stepNumberNext = this.state.stepNumber + 1;
-
-    // updates the history of the gameplay
     this.setState({
       history: history.concat([{ squares: squares }]),
       xIsNext: flipXisNext,
-      stepNumber: stepNumberNext
+      stepNumber: history.length
     });
   };
 
@@ -80,7 +67,7 @@ class Game extends Component {
     const current = history[this.state.stepNumber];
     const winner = this.calculateWinner(current.squares);
 
-    // renders past history
+    // past history
     const moves = history.map((step, move) => {
       const desc = move ? "Go to move # " + move : "Go to game start";
       return (

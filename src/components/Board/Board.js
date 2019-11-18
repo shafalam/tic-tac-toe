@@ -1,8 +1,3 @@
-// **************************
-// this class component renders 9 squares, 3 squares in a row
-// **************************
-
-
 import React, { Component } from "react";
 import Square from "../Square/Square";
 
