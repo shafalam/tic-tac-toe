@@ -27,6 +27,10 @@ class Game extends Component {
     const current = history[history.length - 1];
     const squares = current.squares.slice();
 
+    if (squares[i]) {
+      return;
+    }
+
     if (this.calculateWinner(squares)) {
       return;
     }
@@ -70,8 +74,17 @@ class Game extends Component {
 
 
   machinePlay = () => {
+    const history = this.state.history.slice(0, this.state.stepNumber + 1);
+    const current = history[history.length - 1];
+    const squares = current.squares.slice();
     setTimeout(() => {
-      const randomNum = Math.trunc(Math.random() * 10);
+      let randomNum = Math.trunc(Math.random() * (8 - 0));;
+
+      while (squares[randomNum]) {
+        randomNum = Math.trunc(Math.random() * 10);
+      }
+
+
       console.log(randomNum);
       this.handleClick(randomNum);
     }, 1000);
