@@ -19,8 +19,7 @@ class Game extends Component<GameProps> {
   state = {
     history: [{ squares: Array(9).fill(null) }],
     xIsNext: true,
-    stepNumber: 0,
-    gameOver: false
+    stepNumber: 0
   };
 
   handleClick = (i: number) => {
@@ -30,7 +29,6 @@ class Game extends Component<GameProps> {
     const squares = current.squares.slice();
 
     if (this.calculateWinner(squares)) {
-      this.setState({ gameOver: true });
       return;
     }
     squares[i] = this.state.xIsNext ? "X" : "O";
@@ -94,7 +92,14 @@ class Game extends Component<GameProps> {
   };
 
   playAgainHandler = () => {
-    this.setState({ gameOver: false, stepNumber: 0, xIsNext: true });
+    console.log("playAgainHandler");
+    const newHistory = [{ squares: Array(9).fill(null) }];
+    this.setState({
+      history: newHistory,
+      gameOver: false,
+      stepNumber: 0,
+      xIsNext: true
+    });
   };
 
   componentDidMount() {}
@@ -109,11 +114,24 @@ class Game extends Component<GameProps> {
     const history = this.state.history;
     const current = history[this.state.stepNumber];
     const winner = this.calculateWinner(current.squares);
+
+    let gameOverModal = null;
+
     const gameOverMsg = (
       <p>
         Game Over ! <br /> Winner is {winner}
       </p>
     );
+
+    if (winner) {
+      gameOverModal = (
+        <Modal content={gameOverMsg}>
+          <button type="button" onClick={this.playAgainHandler}>
+            Play Again
+          </button>
+        </Modal>
+      );
+    }
 
     // past history
     const moves = history.map((step, move) => {
@@ -140,13 +158,14 @@ class Game extends Component<GameProps> {
 
     return (
       <div className="game">
-        {this.state.gameOver ? (
+        {/* {winner ? (
           <Modal content={gameOverMsg}>
             <button type="button" onClick={this.playAgainHandler}>
               Play Again
             </button>
           </Modal>
-        ) : null}
+        ) : null} */}
+        {gameOverModal}
         <div className="game-board">
           <Board
             squares={current.squares}
