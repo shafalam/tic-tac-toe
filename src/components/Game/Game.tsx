@@ -158,13 +158,6 @@ class Game extends Component<GameProps> {
 
     return (
       <div className="game">
-        {/* {winner ? (
-          <Modal content={gameOverMsg}>
-            <button type="button" onClick={this.playAgainHandler}>
-              Play Again
-            </button>
-          </Modal>
-        ) : null} */}
         {gameOverModal}
         <div className="game-board">
           <Board
