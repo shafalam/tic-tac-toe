@@ -2,11 +2,7 @@
   "name": "tic-tac-toe",
   "version": "0.1.0",
   "private": true,
-<<<<<<< HEAD
-  "homepage": "https://shafalam.github.io/tic-tac-toe.git",
-=======
   "homepage": "https://shafalam.github.io/tic-tac-toe",
->>>>>>> master
   "dependencies": {
     "@types/jest": "^24.0.24",
     "@types/node": "^12.12.21",
@@ -28,10 +24,7 @@
   "browserslist": {
     "production": [
       ">0.2%",
-<<<<<<< HEAD
       "not dead",
-=======
->>>>>>> master
       "not op_mini all"
     ],
     "development": [
