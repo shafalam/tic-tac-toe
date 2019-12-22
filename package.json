@@ -2,7 +2,7 @@
   "name": "tic-tac-toe",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://shafalam.github.io/tic-tac-toe.git",
+  "homepage": "https://shafalam.github.io/tic-tac-toe",
   "dependencies": {
     "react": "^16.10.2",
     "react-dom": "^16.10.2",
@@ -19,7 +19,6 @@
   "browserslist": {
     "production": [
       ">0.2%",
-      "not dead",
       "not op_mini all"
     ],
     "development": [
