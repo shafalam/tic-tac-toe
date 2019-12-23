@@ -167,7 +167,7 @@ class Game extends Component<GameProps> {
           />
         </div>
         <div className="game-info">
-          <div>{status}</div>
+          <div>Moves</div>
           <div>
             <ol>{moves}</ol>
           </div>
