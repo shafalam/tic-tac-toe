@@ -126,7 +126,7 @@ class Game extends Component<GameProps> {
     if (winner) {
       gameOverModal = (
         <Modal content={gameOverMsg}>
-          <button type="button" onClick={this.playAgainHandler}>
+          <button type="button" style={{height: "15%"}} onClick={this.playAgainHandler}>
             Play Again
           </button>
         </Modal>

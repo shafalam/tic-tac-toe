@@ -1,5 +1,6 @@
 .style {
   position: fixed;
+  display: block;
   width: 25%;
   height: 15%;
   border: 1px solid mistyrose;
