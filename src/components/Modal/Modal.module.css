@@ -1,0 +1,8 @@
+.style {
+  position: fixed;
+  width: 25%;
+  height: 15%;
+  border: 1px solid mistyrose;
+  background-color: whitesmoke;
+  z-index: 50;
+}

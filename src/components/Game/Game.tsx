@@ -5,8 +5,13 @@
 // renders board and a list of past moves
 // **********************************
 
+/****************************************/
+// importing core components
 import React, { Component } from "react";
+
+// importing components
 import Board from "../Board/Board";
+import Modal from "../Modal/Modal";
 
 interface GameProps {}
 
@@ -22,10 +27,6 @@ class Game extends Component<GameProps> {
     const history = this.state.history.slice(0, this.state.stepNumber + 1);
     const current = history[history.length - 1];
     const squares = current.squares.slice();
-
-    if (squares[i]) {
-      return;
-    }
 
     if (this.calculateWinner(squares)) {
       return;
@@ -90,6 +91,17 @@ class Game extends Component<GameProps> {
     }, 1000);
   };
 
+  playAgainHandler = () => {
+    console.log("playAgainHandler");
+    const newHistory = [{ squares: Array(9).fill(null) }];
+    this.setState({
+      history: newHistory,
+      gameOver: false,
+      stepNumber: 0,
+      xIsNext: true
+    });
+  };
+
   componentDidMount() {}
   componentDidUpdate() {
     // machine move
@@ -99,11 +111,27 @@ class Game extends Component<GameProps> {
   }
 
   render() {
-    console.log("rendering");
-
     const history = this.state.history;
     const current = history[this.state.stepNumber];
     const winner = this.calculateWinner(current.squares);
+
+    let gameOverModal = null;
+
+    const gameOverMsg = (
+      <p>
+        Game Over ! <br /> Winner is {winner}
+      </p>
+    );
+
+    if (winner) {
+      gameOverModal = (
+        <Modal content={gameOverMsg}>
+          <button type="button" onClick={this.playAgainHandler}>
+            Play Again
+          </button>
+        </Modal>
+      );
+    }
 
     // past history
     const moves = history.map((step, move) => {
@@ -130,6 +158,7 @@ class Game extends Component<GameProps> {
 
     return (
       <div className="game">
+        {gameOverModal}
         <div className="game-board">
           <Board
             squares={current.squares}
@@ -138,7 +167,7 @@ class Game extends Component<GameProps> {
           />
         </div>
         <div className="game-info">
-          <div>{status}</div>
+          <div>Moves</div>
           <div>
             <ol>{moves}</ol>
           </div>
