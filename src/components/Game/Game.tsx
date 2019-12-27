@@ -13,6 +13,9 @@ import React, { Component } from "react";
 import Board from "../Board/Board";
 import Modal from "../Modal/Modal";
 
+// importing helper methods
+import { intelligentMove } from "../../helper/GameHelper" 
+
 interface GameProps {}
 
 class Game extends Component<GameProps> {
@@ -21,6 +24,18 @@ class Game extends Component<GameProps> {
     xIsNext: true,
     stepNumber: 0
   };
+
+  winnerPattern = [
+    [0, 1, 2],
+    [3, 4, 5],
+    [6, 7, 8],
+    [0, 3, 6],
+    [1, 4, 7],
+    [2, 5, 8],
+    [0, 4, 8],
+    [2, 4, 6]
+  ];
+
 
   handleClick = (i: number) => {
     console.log("click handler. i = " + i);
@@ -41,19 +56,8 @@ class Game extends Component<GameProps> {
   };
 
   calculateWinner = (squares: string[]) => {
-    const winnerPattern = [
-      [0, 1, 2],
-      [3, 4, 5],
-      [6, 7, 8],
-      [0, 3, 6],
-      [1, 4, 7],
-      [2, 5, 8],
-      [0, 4, 8],
-      [2, 4, 6]
-    ];
-
-    for (let i = 0; i < winnerPattern.length; i++) {
-      const [a, b, c] = winnerPattern[i];
+    for (let i = 0; i < this.winnerPattern.length; i++) {
+      const [a, b, c] = this.winnerPattern[i];
       if (
         squares[a] &&
         squares[a] === squares[b] &&
@@ -85,11 +89,15 @@ class Game extends Component<GameProps> {
       let randomNum = Math.trunc(
         Math.random() * (freeCells.length - 1 - 0 + 1) + 0
       );
-      console.log("free spots: ", freeCells, " random number: ", randomNum);
-      console.log(freeCells[randomNum]);
-      this.handleClick(freeCells[randomNum]);
+      // console.log("free spots: ", freeCells, " random number: ", randomNum);
+      // console.log(freeCells[randomNum]);
+      let machineMove: number = intelligentMove("O", this.winnerPattern, squares, freeCells);
+      //this.handleClick(freeCells[randomNum]);
+      this.handleClick(machineMove);
     }, 1000);
   };
+
+  
 
   playAgainHandler = () => {
     console.log("playAgainHandler");
