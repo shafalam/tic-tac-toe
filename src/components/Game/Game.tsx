@@ -89,8 +89,8 @@ class Game extends Component<GameProps> {
       let randomNum = Math.trunc(
         Math.random() * (freeCells.length - 1 - 0 + 1) + 0
       );
-      console.log("free spots: ", freeCells, " random number: ", randomNum);
-      console.log(freeCells[randomNum]);
+      // console.log("free spots: ", freeCells, " random number: ", randomNum);
+      // console.log(freeCells[randomNum]);
       let machineMove: number = intelligentMove("O", this.winnerPattern, squares, freeCells);
       //this.handleClick(freeCells[randomNum]);
       this.handleClick(machineMove);

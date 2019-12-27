@@ -3,11 +3,11 @@ export const intelligentMove = (player: string, winnerPattern:number[][], curren
     let moveOpponent: number = -100;
     let movePlayer: number = -100;
 
+
     // whichever pattern appers first
-    for(let i = 0; i < winnerPattern.length - 1; i++){
-        let [a, b, c] = winnerPattern[i];
-        
-        if(current[a] === current[b]){
+    for(let i = 0; i < winnerPattern.length; i++){
+        let [a, b, c] = winnerPattern[i];       
+        if((current[a] === current[b]) && current[a] !== null){
             if(freeCells.includes(c)){
                 if(current[a] === player){
                     movePlayer = c;
@@ -16,7 +16,7 @@ export const intelligentMove = (player: string, winnerPattern:number[][], curren
                 }
 
             }
-        } else if(current[b] === current[c]){
+        } else if((current[b] === current[c]) && current[b] !== null){
             if(freeCells.includes(a)){
                 if(current[b] === player){
                     movePlayer = a;
@@ -24,7 +24,7 @@ export const intelligentMove = (player: string, winnerPattern:number[][], curren
                     moveOpponent = a;
                 }
             }
-        } else if(current[a] === current[c]){
+        } else if((current[a] === current[c]) && current[a] !== null){
             if(freeCells.includes(b)){
                 if(current[a] === player){
                     movePlayer = b;
@@ -55,56 +55,4 @@ export const intelligentMove = (player: string, winnerPattern:number[][], curren
     } else {
         return firstMove;
     }
-
-    // let [c, d, e] = winnerPattern[0];
-
-    // // defence
-    // for (let i = 0; i < winnerPattern.length - 1; i++) {
-    //   let [a, b, c] = winnerPattern[i];
-    //   if ((squares[a] === "X") && (squares[c] === "X") ) {
-    //     if(freeCells.includes(b)){
-    //         return b;
-    //     }
-    //   } else if ((squares[b] === "X") && (squares[c] === "X")) {
-    //     if(freeCells.includes(a)){
-    //         return a;
-    //     }
-    //   } else if ((squares[a] === "X") && (squares[b] === "X")) {
-    //     if(freeCells.includes(c)){
-    //         return c;
-    //     }
-    //   }  
-    // }
-
-    // // move for possible winning
-    // for (let i = 0; i < winnerPattern.length - 1; i++) {
-    //   let [a, b, c] = winnerPattern[i];
-    //   if ((squares[a] === player) && (squares[c] === player) ) {
-    //     if(freeCells.includes(b)){
-    //         return b;
-    //     }
-    //   } else if ((squares[b] === player) && (squares[c] === player)) {
-    //     if(freeCells.includes(a)){
-    //         return a;
-    //     }
-    //   } else if ((squares[a] === player) && (squares[b] === player)) {
-    //     if(freeCells.includes(c)){
-    //         return c;
-    //     }
-    //   }  
-    // }
-
-    // // move for a possible winning pattern
-    // for (let i = 0; i < winnerPattern.length - 1; i++) {
-    //   let [a, b, c] = winnerPattern[i];
-    //   if((squares[a] !== player) && (squares[a] !== "X")){
-    //     if((squares[b] !== player) && (squares[b] !== "X")){
-    //       if((squares[c] !== player) && (squares[c] !== "X")){
-    //         return a;
-    //       }
-    //     } 
-    //   }   
-    // } 
-
-     return 1;
   }
