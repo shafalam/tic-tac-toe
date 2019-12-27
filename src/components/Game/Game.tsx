@@ -56,6 +56,7 @@ class Game extends Component<GameProps> {
   };
 
   calculateWinner = (squares: string[]) => {
+    
     for (let i = 0; i < this.winnerPattern.length; i++) {
       const [a, b, c] = this.winnerPattern[i];
       if (
@@ -66,7 +67,12 @@ class Game extends Component<GameProps> {
         return squares[a];
       }
     }
-    return null;
+    for(let i = 0; i < squares.length ; i++){
+      if(!squares[i]){
+        return null;
+      }
+    }
+    return "No one";
   };
 
   jumpTo = (step: number) => {
