@@ -1,0 +1,7 @@
+.style {
+  position: fixed;
+  left: 20%;
+  top: 30%;
+  z-index: 50;
+  background-color: lightcoral;
+}

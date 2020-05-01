@@ -1,25 +1,22 @@
 // *********************************
 // for each moves an unique set of moves is create as an array
-// this array is passed to check whether it matches with the winner 
+// this array is passed to check whether it matches with the winner
 // pattern.
 // renders board and a list of past moves
 // **********************************
 
-
 import React, { Component } from "react";
 import Board from "../Board/Board";
+import Modal from "../Modal/Modal";
+
+import shaJs from "sha.js";
 
 class Game extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      history: [{ squares: Array(9).fill(null) }],
-      xIsNext: true,
-      stepNumber: 0
-    };
-  }
-
-
+  state = {
+    history: [{ squares: Array(9).fill(null) }],
+    xIsNext: true,
+    stepNumber: 0
+  };
 
   handleClick = i => {
     console.log("click handler. i = " + i);
@@ -72,7 +69,6 @@ class Game extends Component {
     this.setState({ stepNumber: step, xIsNext: step % 2 === 0 ? true : false });
   };
 
-
   machinePlay = () => {
     const history = this.state.history.slice(0, this.state.stepNumber + 1);
     const current = history[history.length - 1];
@@ -81,21 +77,21 @@ class Game extends Component {
       const freeCells = [];
       squares.filter((element, index) => {
         if (element === null) {
-          freeCells.push(index)
+          freeCells.push(index);
         }
         return true;
-      })
+      });
 
-      let randomNum = Math.trunc(Math.random() * ((freeCells.length - 1) - 0 + 1) + 0);
+      let randomNum = Math.trunc(
+        Math.random() * (freeCells.length - 1 - 0 + 1) + 0
+      );
       console.log("free spots: ", freeCells, " random number: ", randomNum);
       console.log(freeCells[randomNum]);
       this.handleClick(freeCells[randomNum]);
     }, 1000);
+  };
 
-  }
-
-  componentDidMount() {
-  }
+  componentDidMount() {}
   componentDidUpdate() {
     // machine move
     if (!this.state.xIsNext) {
@@ -103,13 +99,31 @@ class Game extends Component {
     }
   }
 
-  render() {
-    console.log("rendering");
+  playAgainHandler = () => {
+    const newHistory = [{ squares: Array(9).fill(null) }];
+    this.setState({
+      history: newHistory,
+      xIsNext: true,
+      stepNumber: 0
+    });
+  };
 
+  render() {
+    console.log(shaJs("something"));
     const history = this.state.history;
     const current = history[this.state.stepNumber];
     const winner = this.calculateWinner(current.squares);
 
+    const modalMsg = `Game over <br />Winner is {winner}`;
+    let modal = null;
+
+    if (winner) {
+      modal = (
+        <Modal content={modalMsg}>
+          <button onClick={this.playAgainHandler}>Play Again</button>
+        </Modal>
+      );
+    }
     // past history
     const moves = history.map((step, move) => {
       const desc = move ? "Go to move # " + move : "Go to game start";
@@ -135,6 +149,7 @@ class Game extends Component {
 
     return (
       <div className="game">
+        {modal}
         <div className="game-board">
           <Board
             squares={current.squares}
